@@ -1,0 +1,11 @@
+# gitignore for node projects
+node_modules
+.env
+.DS_Store
+.vscode
+.idea
+.cursorrules
+.cursorignore
+.cursorignore
+
+build

@@ -6,17 +6,23 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "dev": "tsc && node build/index.js"
+    "dev": "tsc && node build/index.js",
+    "prepublishOnly": "npm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "MCP server for handling file processing and blockchain transaction preparation",
+  "files": [  
+    "build/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": ["mcp","poi","desci","molecule","ipnft","evm"],
+  "author": "stadolf@duck.com",
+  "license": "MIT",
+  "description": "MCP server that prepares Proof of Invention (POI) transaction requests for submission",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
     "axios": "^1.9.0",
     "dotenv": "^16.5.0",
-    "zod": "^3.25.20"
+    "zod": "^3.25.28"
   },
   "devDependencies": {
     "@types/axios": "^0.9.36",

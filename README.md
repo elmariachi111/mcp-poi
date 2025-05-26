@@ -16,8 +16,7 @@ A Model Context Protocol server for processing files and preparing blockchain tr
 
 ## Environment Variables
 
-- `API_TOKEN`: Your API bearer token for authentication against the PoI API
-
+- `API_TOKEN`: Your API bearer token for authentication against the PoI API. You can request a new token on Molecule's Discord Server: https://discord.gg/k4ER7vZcj8
 
 ## Usage
 
@@ -34,7 +33,7 @@ https://docs.molecule.to/documentation/proof-of-invention-poi/api-access-beta
     "<working_dir>/mcp-poi/build/index.js"
   ],
   "env": {
-    "API_TOKEN": "the api token"
+    "API_TOKEN": "the api token "
   }
 },
 ```
@@ -87,3 +86,48 @@ The server includes robust error handling for:
 - File contents are properly encoded before transmission
 - Error messages are sanitized to prevent information leakage
 - No filesystem access required - all content is provided by the MCP client 
+
+## Usage
+
+Plays nicely with filesystem and evm providers, e.g.
+
+- https://pypi.org/project/mcp-server-fetch/
+- https://www.npmjs.com/package/@mcp-dockmaster/mcp-cryptowallet-evm
+
+This is how the our Claude desktop config looks:
+
+```json 
+{
+  "mcpServers": {
+    "mcp-cryptowallet-evm": {
+      "command": "npx",
+      "args": ["@mcp-dockmaster/mcp-cryptowallet-evm"],
+      "env": {
+        "PRIVATE_KEY": ""
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/stadolf/Downloads",
+        "/Users/stadolf/Documents"
+      ]
+    },
+    "poi": {
+      "command": "node",
+      "args": ["/Users/stadolf/work/mcp-poi/build/index.js"],
+      "env": {
+        "API_TOKEN": ""
+      }
+    }
+  }
+}
+```
+
+
+| Create a poi hash from the "idea.md" file in my Documents folder
+...
+| send and Eth transation with the poi hash to the poi to address on the base blockchain
+

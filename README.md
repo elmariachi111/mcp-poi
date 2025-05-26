@@ -22,7 +22,7 @@ https://github.com/user-attachments/assets/6b2fbd68-4eca-4130-9594-d6720508e9c8
 
 ## Usage
 
-The server provides a tool called `create_proof_of_invention_request` that accepts a file path returns prepared transaction data suitable for blockchain execution. This can be reused by your favorite tool that can sign and submit transactions.  The binary content should be provided by the MCP client (e.g., Claude Desktop or Cursor). 
+The server provides a tool called `create_proof_of_invention_request` that accepts a file path returns prepared transaction data suitable for blockchain execution. This can be reused by your favorite tool that can sign and submit transactions. The binary content should be provided by the MCP client (e.g., Claude Desktop or Cursor).
 
 https://docs.molecule.to/documentation/proof-of-invention-poi/api-access-beta
 
@@ -30,26 +30,72 @@ https://docs.molecule.to/documentation/proof-of-invention-poi/api-access-beta
 
 ```json
 "poi": {
-  "command": "node",
-  "args": [
-    "<working_dir>/mcp-poi/build/index.js"
-  ],
-  "env": {
-    "API_TOKEN": "the api token "
-  }
-},
+      "command": "npx",
+      "args": ["mcp-poi"],
+      "env": {
+        "API_TOKEN": "the api token"
+      }
+    }
 ```
+
+### Plays nicely with other MCP servers
+
+- https://pypi.org/project/mcp-server-fetch/
+- https://www.npmjs.com/package/@mcp-dockmaster/mcp-cryptowallet-evm
+
+Our complete Claude desktop config looks:
+
+```json
+{
+  "mcpServers": {
+    "mcp-cryptowallet-evm": {
+      "command": "npx",
+      "args": ["@mcp-dockmaster/mcp-cryptowallet-evm"],
+      "env": {
+        "PRIVATE_KEY": ""
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/stadolf/Downloads",
+        "/Users/stadolf/Documents"
+      ]
+    },
+    "poi": {
+      "command": "npx",
+      "args": ["-y", "mcp-poi"],
+      "env": {
+        "API_TOKEN": ""
+      }
+    }
+  }
+}
+```
+
+
+#### Prompts 
+
+| Create a poi hash from the "idea.md" file in my Documents folder
+...
+| send and Eth transation with the poi hash to the poi's to address on the base blockchain
+
+
 
 ### Tool Schema
 
 Input:
+
 ```typescript
 {
-  filepath: string  // A path of a binary
+  filepath: string; // A path of a binary
 }
 ```
 
 Output:
+
 ```typescript
 {
   transaction_request: {
@@ -77,6 +123,7 @@ npm run dev
 ## Error Handling
 
 The server includes robust error handling for:
+
 - Missing environment variables
 - Invalid file content
 - API communication errors
@@ -87,50 +134,6 @@ The server includes robust error handling for:
 - API tokens are loaded from environment variables
 - File contents are properly encoded before transmission
 - Error messages are sanitized to prevent information leakage
-- No filesystem access required - all content is provided by the MCP client 
+- No filesystem access required - all content is provided by the MCP client
 
-## Usage
-
-Plays nicely with filesystem and evm providers, e.g.
-
-- https://pypi.org/project/mcp-server-fetch/
-- https://www.npmjs.com/package/@mcp-dockmaster/mcp-cryptowallet-evm
-
-This is how the our Claude desktop config looks:
-
-```json 
-{
-  "mcpServers": {
-    "mcp-cryptowallet-evm": {
-      "command": "npx",
-      "args": ["@mcp-dockmaster/mcp-cryptowallet-evm"],
-      "env": {
-        "PRIVATE_KEY": ""
-      }
-    },
-    "filesystem": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/Users/stadolf/Downloads",
-        "/Users/stadolf/Documents"
-      ]
-    },
-    "poi": {
-      "command": "npx",
-      "args": ["mcp-poi"],
-      "env": {
-        "API_TOKEN": ""
-      }
-    }
-  }
-}
-
-```
-
-
-| Create a poi hash from the "idea.md" file in my Documents folder
-...
-| send and Eth transation with the poi hash to the poi to address on the base blockchain
 

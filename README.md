@@ -2,6 +2,8 @@
 
 A Model Context Protocol server for processing files and preparing blockchain transactions. This server can be installed in Claude Desktop and provides a tool to process files and prepare them for blockchain transactions.
 
+https://github.com/user-attachments/assets/6b2fbd68-4eca-4130-9594-d6720508e9c8
+
 ## Setup
 
 1. Clone this repository

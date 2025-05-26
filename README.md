@@ -116,14 +116,15 @@ This is how the our Claude desktop config looks:
       ]
     },
     "poi": {
-      "command": "node",
-      "args": ["/Users/stadolf/work/mcp-poi/build/index.js"],
+      "command": "npx",
+      "args": ["mcp-poi"],
       "env": {
         "API_TOKEN": ""
       }
     }
   }
 }
+
 ```
 
 

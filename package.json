@@ -9,13 +9,23 @@
     "dev": "tsc && node build/index.js",
     "prepublishOnly": "npm run build"
   },
-  "files": [  
+  "files": [
     "build/",
     "README.md",
     "LICENSE"
   ],
-  "keywords": ["mcp","poi","desci","molecule","ipnft","evm"],
+  "keywords": [
+    "mcp",
+    "poi",
+    "desci",
+    "molecule",
+    "ipnft",
+    "evm"
+  ],
   "author": "stadolf@duck.com",
+  "bugs": {
+    "url": "https://github.com/elmariachi111/mcp-poi/issues"
+  },
   "license": "MIT",
   "description": "MCP server that prepares Proof of Invention (POI) transaction requests for submission",
   "dependencies": {

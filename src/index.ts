@@ -41,7 +41,7 @@ interface PoIAPIResponse {
 const ProcessFileSchema = {
   name: "create_proof_of_invention_request",
   description:
-    "Process a file from the filesystem and prepares an unsigned transaction request for a blockchain transaction. The file path should be absolute or relative to the current working directory.",
+    "Process a file from the filesystem and prepares an unsigned transaction request to anchor a Proof of Innovation hash on a an evm blockchain.",
   parameters: z.object({
     filepath: z.string().describe("Path to the file to be processed"),
   }),
